@@ -50,6 +50,8 @@ A full step-by-step explanation of the code is in [docs/GUIDE.md](docs/GUIDE.md)
 **New to all this? Start with [docs/TEAM_GUIDE.md](docs/TEAM_GUIDE.md)** — setup,
 Git teamwork and tasks for a 3-person team. Deadline close? Use
 [docs/2_DAY_PLAN.md](docs/2_DAY_PLAN.md).
+Separate step-by-step guides (and PDFs) for each team member are in
+[docs/team/](docs/team/).
 
 ## Database
 
