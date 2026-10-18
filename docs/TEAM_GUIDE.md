@@ -146,8 +146,9 @@ Move it to `main` so everyone gets it:
 In Command Prompt:
 ```
 cd %USERPROFILE%\Documents
-git clone -b claude/code-implementation-guide-fqx9ks https://github.com/ZumairaSultana/WATTWATCH.git
-cd WATTWATCH
+git clone https://github.com/ZumairaSultana/WATTWATCH.git WATT-WATCH
+cd WATT-WATCH
+git checkout claude/code-implementation-guide-fqx9ks
 ```
 - `cd` = "change directory" (go into a folder).
 - `git clone` = download the project, still linked to GitHub.
@@ -186,7 +187,7 @@ To stop the app: click the Command Prompt window and press **Ctrl + C**.
 ### Step 3.13 — Run the tests
 Open a **second** Command Prompt, go to the folder, activate venv, then:
 ```
-cd %USERPROFILE%\Documents\WATTWATCH
+cd %USERPROFILE%\Documents\WATT-WATCH
 venv\Scripts\activate
 python -m pytest
 ```
@@ -292,7 +293,7 @@ The names and numbers are **fictional** — don't present them as real customers
 
 ### Look inside the database yourself
 1. Install **DB Browser for SQLite** (free, from **sqlitebrowser.org**).
-2. **Open Database** → `WATTWATCH\data\wattwatch.db`.
+2. **Open Database** → `WATT-WATCH\data\wattwatch.db`.
 3. **Browse Data** tab → pick a table to see its rows.
 4. **Execute SQL** tab → try the queries in Part 6.
 5. ⚠️ **Close the database in DB Browser before using the app**, otherwise the

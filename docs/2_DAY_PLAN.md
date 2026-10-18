@@ -49,8 +49,9 @@ emails → Editor**), and pastes in these headings:
 4. Type these lines one at a time, pressing **Enter** after each:
    ```
    cd %USERPROFILE%\Documents
-   git clone -b claude/code-implementation-guide-fqx9ks https://github.com/ZumairaSultana/WATTWATCH.git
-   cd WATTWATCH
+   git clone https://github.com/ZumairaSultana/WATTWATCH.git WATT-WATCH
+   cd WATT-WATCH
+   git checkout claude/code-implementation-guide-fqx9ks
    python -m venv venv
    venv\Scripts\activate
    pip install -r requirements.txt
@@ -66,7 +67,7 @@ emails → Editor**), and pastes in these headings:
    To stop the app later: click the Command Prompt window and press **Ctrl + C**.
 
 > Next time you open Command Prompt, you only need:
-> `cd %USERPROFILE%\Documents\WATTWATCH`, `venv\Scripts\activate`, `streamlit run app.py`
+> `cd %USERPROFILE%\Documents\WATT-WATCH`, `venv\Scripts\activate`, `streamlit run app.py`
 
 ### Step 2 — Teammates download the code (Persons 2 and 3, 5 minutes)
 
@@ -129,7 +130,7 @@ slab, and suggests which appliances to cut to save money."*
 **Step 1.3 — Database screenshots (45 minutes)**
 1. Install **DB Browser for SQLite** (free, sqlitebrowser.org).
 2. **Stop the app first** (Ctrl + C), then **Open Database** →
-   `Documents\WATTWATCH\data\wattwatch.db`.
+   `Documents\WATT-WATCH\data\wattwatch.db`.
 3. **Browse Data** tab → screenshot each of the 3 tables.
 4. **Execute SQL** tab → run each query below → screenshot the result:
    ```sql

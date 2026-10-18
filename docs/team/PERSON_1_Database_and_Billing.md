@@ -80,11 +80,15 @@ git --version
 **A5. Download the code** — type these lines one at a time:
 ```
 cd %USERPROFILE%\Documents
-git clone -b claude/code-implementation-guide-fqx9ks https://github.com/ZumairaSultana/WATTWATCH.git WATT-WATCH
+git clone https://github.com/ZumairaSultana/WATTWATCH.git WATT-WATCH
 cd WATT-WATCH
+git checkout claude/code-implementation-guide-fqx9ks
 ```
 - `cd` = "go into a folder".
 - `git clone` = download the project from GitHub into a folder called **WATT-WATCH**.
+- `git checkout` = switch to the branch that has the code.
+- ⚠️ **Type each line on its own.** If you copy from this PDF, check the GitHub address wasn't split across two lines.
+- If it says *"destination path 'WATT-WATCH' already exists"*, you already have the folder — skip to A6.
 - If a window asks you to sign in to GitHub, sign in.
 
 **A6. Create the virtual environment and install packages**
