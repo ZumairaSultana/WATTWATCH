@@ -60,7 +60,7 @@ Scan meter → Track units → Predict bill → Warn before a costlier slab → 
 5. *(Optional)* Install **VS Code** (code.visualstudio.com) to read the code with colours: **File → Open Folder** → pick that folder.
 
 **A2. Team meeting (1 hour)**
-- Person 1 shows the app. Watch especially the **💡 Reduce & Save** tab, and notice the order of all 5 tabs — you'll present the demo.
+- Person 1 shows the app. Watch especially the **💡 Reduce & Save** tab, and notice the welcome pop-up and the order of the 4 tabs — you'll present the demo.
 - Person 1 shares the **WATT-WATCH Report** Google Doc with you — open it and find **7.3 Saving plan & interface**.
 
 ---
@@ -72,7 +72,7 @@ Your files:
 | File | What it does |
 |---|---|
 | `wattwatch/appliances.py` | Appliance list, saving plan and savings |
-| `app.py` | The screens: sidebar and the 5 tabs |
+| `app.py` | The screens: welcome pop-up, sidebar and the 4 tabs |
 
 ### B1. How much electricity an appliance uses
 
@@ -142,15 +142,17 @@ Because of the slabs, every unit saved is taken off the **most expensive** slab 
 were heading into — that's why avoiding a slab jump saves the most money.
 (0.71 kg CO₂ per unit is an **approximate** figure for India's grid.)
 
-### B4. The 5 tabs (`app.py`)
+### B4. The welcome pop-up and the 4 tabs (`app.py`)
 
 | Tab | What it shows |
 |---|---|
-| 🏠 Households | All households and their latest meter reading |
 | 📷 Scan & Track | Upload a meter photo or type a reading; table of all readings |
 | 📈 Predict & Warn | Predicted units and bill, chart, early warning |
 | 💡 Reduce & Save | Appliance table → saving plan → savings |
 | 🧾 Bills | Generate a bill; mark Paid / Unpaid / Pending |
+
+The **welcome pop-up** appears once when the website opens: it explains the 4 steps, and
+**Get started** (or ✕) closes it. It's made with Streamlit's `st.dialog`.
 
 The **sidebar** has: household selection, add a household, billing cycle length,
 tariff rates and other settings.
@@ -219,7 +221,7 @@ Open the Google Doc → **7.3 Saving plan & interface**. Write in your own words
 
 **7.3.3 Savings** — units, money and CO₂ formulas (B3); your home's results (Step D).
 
-**7.3.4 User interface** — Streamlit; the sidebar; a short description and screenshot of each of the 5 tabs (B4).
+**7.3.4 User interface** — Streamlit; the sidebar; a short description and screenshot of the welcome pop-up and each of the 4 tabs (B4).
 
 ---
 
@@ -241,8 +243,8 @@ Open the Google Doc → **7.3 Saving plan & interface**. Write in your own words
 5. Copy it to a **pen drive** and Google Drive.
 
 ### Demo script (you talk, Person 1 clicks) — about 3 minutes
-1. **🏠 Households** — *"These are the households stored in our SQLite database."*
-2. Sidebar → select **your home** → **📷 Scan & Track** → upload a meter photo → **Read number from photo** → check the number → **Add reading** — *"We scan the meter; the user confirms the number."*
+1. **Welcome pop-up** → **Get started** — *"WATT-WATCH greets the user and explains the four steps."*
+2. Sidebar → select **a household** (*"households are stored in our SQLite database"*) → **📷 Scan & Track** → upload a meter photo → **Read number from photo** → check the number → **Add reading** — *"We scan the meter; the user confirms the number."*
 3. **📈 Predict & Warn** — *"We're predicted to use X units this cycle — Rs Y. The app warns us Z days before we cross the next slab."*
 4. **💡 Reduce & Save** — tick appliances — *"If we cut the AC by 2 hours and the geyser by half an hour, we save about N units and Rs M this cycle."*
 5. **🧾 Bills** — **Generate bill** → set **Paid** — *"At the end of the cycle the bill is stored with its payment status."*

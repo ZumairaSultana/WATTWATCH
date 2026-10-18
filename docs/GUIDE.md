@@ -281,7 +281,8 @@ The sample households have no reading dates in the source PDF, so
 - **Tab "Reduce & Save"** — appliance table → `make_saving_plan` →
   `estimate_savings` → suggestions table and savings metrics.
 
-- **Tab "Households"** and **Tab "Bills"** show and change the database tables.
+- A **welcome pop-up** (`st.dialog`) appears once when the website opens.
+- **Tab "Bills"** shows and changes the Electricity_Bill table.
 
 Streamlit re-runs the whole script on every click, so each run opens the
 database, reads what it needs and closes it again; everything is saved in

@@ -21,7 +21,7 @@ Families usually find out how much they used only when the bill arrives.
 Scan meter → Track units → Predict bill → Warn before a costlier slab → Reduce usage → See savings
 ```
 
-It has **5 tabs**: 🏠 Households · 📷 Scan & Track · 📈 Predict & Warn · 💡 Reduce & Save · 🧾 Bills.
+It opens with a **welcome pop-up**, then has **4 tabs**: 📷 Scan & Track · 📈 Predict & Warn · 💡 Reduce & Save · 🧾 Bills.
 All data is stored in an **SQLite database** file: `data\wattwatch.db`.
 
 **The team:**
@@ -159,8 +159,8 @@ streamlit run app.py
 ```
 
 **B2. Walk your teammates through the app** (share your screen or sit together):
-1. **🏠 Households** — "These are 10 sample households from the database PDF."
-2. Sidebar → **Select household** → **H001 - Arun**.
+1. A **welcome pop-up** appears → click **Get started**.
+2. Sidebar (click **>>** at the top left if it's hidden) → **Select household** — "These are the 10 sample households from the database PDF" → **H001 - Arun**.
 3. **🧾 Bills** → **Generate bill for this cycle** → a bill for **150 units = Rs 240** appears.
    *(150 units: first 100 free, next 50 × Rs 4.80 = Rs 240.)*
 4. **📷 Scan & Track** → type **1480** in *Meter reading* → **Add reading**.
@@ -401,7 +401,7 @@ Write in your own words, using these sub-headings:
 - **Introduction**: slab billing; families learn their usage only when the bill arrives.
 - **Objectives**: track usage from meter readings; predict the bill; warn before a costlier slab; suggest how to save; store data in a database.
 - **Existing system**: bill shown only at the end of the cycle; no early warning; no saving plan.
-- **Proposed system**: the 6-step flow and 5 tabs.
+- **Proposed system**: the 6-step flow, the welcome pop-up and the 4 tabs.
 - **System design**: Python + Streamlit (screens) + SQLite (data) + Tesseract (OCR); the ER diagram.
 - **Conclusion**: what you built, what worked, what you would improve.
 

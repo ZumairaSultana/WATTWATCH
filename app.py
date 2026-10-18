@@ -17,7 +17,6 @@ from wattwatch.appliances import APPLIANCE_CATALOG, Appliance, estimate_savings,
 from wattwatch.ocr import read_meter
 from wattwatch.predictor import predict_cycle
 from wattwatch.tariff import Tariff, calculate_bill, slab_breakdown
-from wattwatch.sample_data import SAMPLE_PERIOD_END, SAMPLE_PERIOD_START
 
 DB_FILE = Path(__file__).parent / "data" / "wattwatch.db"
 
@@ -85,28 +84,6 @@ def other_settings(conn):
             db.reset_to_sample_data(conn)
             st.rerun()
     return factor
-
-
-# ---------- Tab: Households ----------
-
-def households_tab(conn, length_days, tariff):
-    st.subheader("🏠 Household and EB meter records")
-    st.caption("Latest meter reading of every household. The 10 sample households are fictional "
-               f"data; their reading dates ({SAMPLE_PERIOD_START} to {SAMPLE_PERIOD_END}) are assumed.")
-    rows = []
-    for r in db.households_overview(conn):
-        cycle = db.current_cycle(conn, r["House_ID"], length_days)
-        units = cycle.units_used() if cycle else 0
-        rows.append({
-            "House ID": r["House_ID"], "Consumer No.": r["Consumer_Number"],
-            "Meter No.": r["Meter_Number"], "Household Name": r["Household_Name"],
-            "Connection": r["Connection_Type"], "Previous Reading (kWh)": r["Previous_Reading"],
-            "Current Reading (kWh)": r["Current_Reading"], "Units Consumed": r["Units_Consumed"],
-            "Reading Date": r["Reading_Date"], "Unbilled units": units,
-            "Bill if billed now (Rs)": calculate_bill(units, tariff),
-        })
-    st.dataframe(pd.DataFrame(rows), hide_index=True)
-    st.caption("Units Consumed = Current Reading − Previous Reading.")
 
 
 # ---------- Tab 1: Scan & Track ----------
@@ -380,10 +357,8 @@ def run_app(conn):
     tariff = tariff_settings()
     emission_factor = other_settings(conn)
 
-    tabs = st.tabs(["🏠 Households", "📷 Scan & Track", "📈 Predict & Warn", "💡 Reduce & Save", "🧾 Bills"])
-    tab_households, tab_track, tab_predict, tab_save, tab_bills = tabs
-    with tab_households:
-        households_tab(conn, length_days, tariff)
+    tabs = st.tabs(["📷 Scan & Track", "📈 Predict & Warn", "💡 Reduce & Save", "🧾 Bills"])
+    tab_track, tab_predict, tab_save, tab_bills = tabs
     if house_id is None:
         st.info("👈 Add a household in the sidebar to get started.")
         return

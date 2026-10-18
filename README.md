@@ -33,7 +33,7 @@ scanning it.
 
 | File | What it does |
 |------|--------------|
-| `app.py` | Streamlit user interface (sidebar + 5 tabs) |
+| `app.py` | Streamlit user interface (welcome pop-up, sidebar + 4 tabs) |
 | `wattwatch/schema.sql` | SQLite tables: Household, EB_Meter, Electricity_Bill |
 | `wattwatch/sample_data.py` | 10 fictional sample households |
 | `wattwatch/db.py` | Saves/reads households, readings and bills |

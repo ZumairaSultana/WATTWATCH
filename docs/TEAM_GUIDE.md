@@ -34,11 +34,10 @@ high electricity bills:
 Scan meter → Track units → Predict bill → Warn before slab jump → Reduce usage → See savings
 ```
 
-It has **5 tabs**:
+It opens with a **welcome pop-up**, then has **4 tabs**:
 
 | Tab | What it does |
 |---|---|
-| 🏠 Households | Table of all households and their latest meter reading |
 | 📷 Scan & Track | Upload a meter photo or type the reading; see all readings |
 | 📈 Predict & Warn | Predicted units and bill for the cycle, and a warning before a costlier slab |
 | 💡 Reduce & Save | Pick appliances and hours → a saving plan and money saved |
@@ -52,7 +51,7 @@ Priya, …).
 
 | File | Job |
 |---|---|
-| `app.py` | The screens (sidebar + 5 tabs) |
+| `app.py` | The screens (welcome pop-up, sidebar + 4 tabs) |
 | `wattwatch/schema.sql` | Creates the 3 database tables |
 | `wattwatch/sample_data.py` | The 10 sample households |
 | `wattwatch/db.py` | Saves and reads households, readings and bills |
@@ -194,8 +193,8 @@ python -m pytest
 You should see **`32 passed`**. Run this before every push.
 
 ### Step 3.14 — Try the app once (5 minutes)
-1. **🏠 Households** — see the 10 sample households.
-2. Sidebar → pick **H001 - Arun**.
+1. Close the **welcome pop-up** (**Get started**).
+2. Sidebar → **Select household** (the 10 sample households) → pick **H001 - Arun**.
 3. **🧾 Bills** → **Generate bill for this cycle** (bills Arun's 150 sample units).
 4. **📷 Scan & Track** → type a reading higher than 1400 (e.g. 1480) → **Add reading**.
 5. **📈 Predict & Warn** → see the prediction and warning.
@@ -400,7 +399,7 @@ For each home: predicted units vs actual units at the end of the cycle.
 
 ### Task 3.1 — Understand the screens (week 1)
 Click through every tab. Open `app.py` and find the function for each tab
-(`households_tab`, `scan_and_track`, `predict_and_warn`, `reduce_and_save`, `bills_tab`).
+(`welcome_popup`, `scan_and_track`, `predict_and_warn`, `reduce_and_save`, `bills_tab`).
 
 ### Task 3.2 — Check appliance wattages
 1. Look at the **sticker/label** on appliances at home (AC, geyser, fridge, motor, TV…). Note the **W (watts)**.
@@ -465,8 +464,8 @@ Problem → Solution → Flow → Architecture & database → Person 1's part �
 Person 2's part → Person 3's part → Results → Live demo → Limitations → Future → Thank you
 
 ### Demo script (practise 3 times)
-1. **Households** tab — "Here are our households from the database."
-2. Pick a household → **Scan & Track** → upload a meter photo → read → add reading.
+1. **Welcome pop-up** → **Get started**.
+2. Pick a household in the sidebar → **Scan & Track** → upload a meter photo → read → add reading.
 3. **Predict & Warn** — "It predicts X units and warns us before the next slab."
 4. **Reduce & Save** — tick appliances → "Cutting AC by 1 hour saves Rs Y."
 5. **Bills** — generate a bill, mark it Paid.

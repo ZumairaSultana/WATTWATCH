@@ -82,8 +82,8 @@ emails → Editor**), and pastes in these headings:
 
 Person 1 shares their screen (or everyone sits together) and clicks through:
 
-1. **🏠 Households** — the 10 sample households from the database PDF.
-2. Sidebar → select **H001 - Arun**.
+1. Close the **welcome pop-up** (**Get started**).
+2. Sidebar → **Select household** → the list has the 10 sample households from the database PDF → select **H001 - Arun**.
 3. **🧾 Bills** → **Generate bill for this cycle** → a bill for 150 units appears.
 4. **📷 Scan & Track** → type **1480** → **Add reading**.
 5. **📈 Predict & Warn** — predicted units, bill and warning.
@@ -249,7 +249,7 @@ Make ~12 slides (Google Slides or PowerPoint):
 
 **Step 3.5 — Write report section 7.3 (evening)**
 Explain the appliance formula, the saving plan method, your example, and the
-app's 5 tabs (with screenshots).
+app's 4 tabs (with screenshots).
 
 ---
 
@@ -266,8 +266,8 @@ app's 5 tabs (with screenshots).
 | 17:00 – 18:00 | All | Practise the questions below; everyone answers every question once |
 
 ### Demo script (Person 3 presents, Person 1 clicks)
-1. **Households** — "These are households stored in our SQLite database."
-2. Select your home → **Scan & Track** — upload a meter photo → **Read number** → **Add reading**.
+1. **Welcome pop-up** → **Get started** — "Households are stored in our SQLite database; we pick one in the sidebar."
+2. Select a household → **Scan & Track** — upload a meter photo → **Read number** → **Add reading**.
 3. **Predict & Warn** — "We will use about X units; the app warns us before we cross Y units."
 4. **Reduce & Save** — tick appliances — "Cutting the AC by 1 hour a day saves Rs Z."
 5. **Bills** — generate a bill → mark it Paid.
