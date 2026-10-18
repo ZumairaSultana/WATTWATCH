@@ -3,12 +3,13 @@
 A cycle starts at the reading printed on the last bill. Every new reading
 the user adds (typed or scanned) is stored with its date, and the units
 used so far is simply   latest reading - starting reading.
+
+The readings themselves are saved in the database (see db.py); this module
+holds the in-memory Cycle that the predictor works with.
 """
 
-import json
 from dataclasses import dataclass, field
 from datetime import date
-from pathlib import Path
 
 
 @dataclass(frozen=True)
@@ -75,28 +76,3 @@ class Cycle:
             })
         return rows
 
-
-def save_cycle(cycle, path):
-    path = Path(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    data = {
-        "start_date": cycle.start_date.isoformat(),
-        "start_reading": cycle.start_reading,
-        "length_days": cycle.length_days,
-        "readings": [{"day": r.day.isoformat(), "value": r.value} for r in cycle.readings],
-    }
-    path.write_text(json.dumps(data, indent=2))
-
-
-def load_cycle(path):
-    """Load the saved cycle, or return None if nothing has been saved yet."""
-    path = Path(path)
-    if not path.exists():
-        return None
-    data = json.loads(path.read_text())
-    return Cycle(
-        start_date=date.fromisoformat(data["start_date"]),
-        start_reading=float(data["start_reading"]),
-        length_days=int(data["length_days"]),
-        readings=[Reading(date.fromisoformat(r["day"]), float(r["value"])) for r in data["readings"]],
-    )

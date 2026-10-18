@@ -8,7 +8,7 @@ from wattwatch.appliances import Appliance, estimate_savings, make_saving_plan
 from wattwatch.ocr import parse_reading
 from wattwatch.predictor import daily_usage_rate, predict_cycle
 from wattwatch.tariff import Tariff, calculate_bill, marginal_rate, slab_breakdown
-from wattwatch.tracker import Cycle, Reading, load_cycle, save_cycle
+from wattwatch.tracker import Cycle, Reading
 
 # Simple tariff so the expected numbers are easy to check by hand.
 TARIFF = Tariff.from_rows([(100, 0), (400, 5), (500, 10), (None, 20)])
@@ -63,14 +63,6 @@ def test_cycle_rejects_impossible_readings():
         cycle.add_reading(START + timedelta(days=5), 1060)  # higher than a later reading
     with pytest.raises(ValueError):
         cycle.add_reading(START, 1010)  # not after cycle start
-
-
-def test_cycle_save_and_load(tmp_path):
-    cycle = Cycle(START, 1000, 60, [Reading(START + timedelta(days=3), 1012.5)])
-    path = tmp_path / "cycle.json"
-    save_cycle(cycle, path)
-    assert load_cycle(path) == cycle
-    assert load_cycle(tmp_path / "missing.json") is None
 
 
 # ---------- predictor ----------

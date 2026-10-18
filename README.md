@@ -33,17 +33,29 @@ scanning it.
 
 | File | What it does |
 |------|--------------|
-| `app.py` | Streamlit user interface (sidebar + 3 tabs) |
+| `app.py` | Streamlit user interface (sidebar + 5 tabs) |
+| `wattwatch/schema.sql` | SQLite tables: Household, EB_Meter, Electricity_Bill |
+| `wattwatch/sample_data.py` | 10 fictional sample households |
+| `wattwatch/db.py` | Saves/reads households, readings and bills |
 | `wattwatch/config.py` | Default tariff slabs, cycle length, CO2 factor |
 | `wattwatch/tariff.py` | Slab-based bill calculator |
-| `wattwatch/tracker.py` | Meter readings, units used, saving/loading data |
+| `wattwatch/tracker.py` | Units used in the current cycle |
 | `wattwatch/predictor.py` | Usage rate and end-of-cycle bill prediction |
 | `wattwatch/alerts.py` | Early warning before crossing a slab limit |
 | `wattwatch/appliances.py` | Appliance list, saving plan, savings estimate |
 | `wattwatch/ocr.py` | Reads the number from a meter photo |
-| `tests/test_wattwatch.py` | Unit tests for the logic above |
+| `tests/` | Unit tests for the logic and the database |
 
 A full step-by-step explanation of the code is in [docs/GUIDE.md](docs/GUIDE.md).
+**New to all this? Start with [docs/TEAM_GUIDE.md](docs/TEAM_GUIDE.md)** — setup,
+Git teamwork and tasks for a 3-person team.
+
+## Database
+
+Data is stored in SQLite at `data/wattwatch.db` (created on first run and
+filled with the 10 fictional sample households from "Household EB Meter
+Database"). The PDF has no reading dates, so the sample readings are assumed
+to cover 1 Aug – 30 Sep 2026 (see `wattwatch/sample_data.py`).
 
 ## ⚠️ Check the tariff
 

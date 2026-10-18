@@ -115,8 +115,8 @@ Store readings for the current billing cycle and compute units used.
     reading on the same date replaces the first.
   - `usage_table()` — units and units/day between consecutive readings (shown
     as the table in the app).
-- `save_cycle` / `load_cycle` — store the cycle as JSON in `data/cycle.json`,
-  so readings survive restarting the app.
+- Readings are saved in the database (Step 8b); `db.current_cycle` builds
+  the `Cycle` from them.
 
 > Note: meter roll-over (e.g. 99999 → 00000) is not handled.
 
@@ -236,10 +236,39 @@ grid; check the latest CEA CO2 Baseline Database and update it in the sidebar.
 
 ---
 
+## Step 8b — The database (`schema.sql`, `db.py`, `sample_data.py`)
+
+Households, meter readings and bills are stored in SQLite
+(`data/wattwatch.db`), using the three tables from "Household EB Meter
+Database":
+
+- **Household** — `House_ID` (primary key), consumer number, name, address, connection type.
+- **EB_Meter** — one row per period between two readings: previous and
+  current reading, `Units_Consumed = Current − Previous` (calculated by the
+  code, never typed), reading date.
+- **Electricity_Bill** — billing period, units, amount, payment status
+  (Paid / Unpaid / Pending).
+
+Two columns are added to EB_Meter: `Previous_Reading_Date` (the prediction
+needs the start date of each period) and `Bill_ID` (which bill a reading
+belongs to; NULL = current, unbilled cycle).
+
+- `db.add_reading` copies the previous reading from the last row and checks
+  the new reading is later and not lower.
+- `db.current_cycle` turns the unbilled rows into the tracker's `Cycle`, so
+  the predictor and alerts work exactly as before.
+- `db.generate_bill` adds up the unbilled units, prices them with the tariff,
+  inserts an Electricity_Bill row and stamps its `Bill_ID` on those readings.
+
+The sample households have no reading dates in the source PDF, so
+`sample_data.py` assumes 1 Aug – 30 Sep 2026.
+
+---
+
 ## Step 9 — The Streamlit app (`app.py`)
 
 - **Sidebar**
-  1. *Billing cycle* form → creates/updates the `Cycle` and saves it.
+  1. *Household* picker, *Add a household* form and the cycle length.
   2. *Tariff* table (`st.data_editor`) → `Tariff.from_rows`; if the table is
      invalid the app shows an error and falls back to the default tariff.
   3. *Emission factor*.
@@ -252,19 +281,22 @@ grid; check the latest CEA CO2 Baseline Database and update it in the sidebar.
 - **Tab "Reduce & Save"** — appliance table → `make_saving_plan` →
   `estimate_savings` → suggestions table and savings metrics.
 
-`st.session_state` keeps the cycle between Streamlit reruns (Streamlit re-runs
-the whole script on every click), and `data/cycle.json` keeps it between app
-restarts.
+- **Tab "Households"** and **Tab "Bills"** show and change the database tables.
+
+Streamlit re-runs the whole script on every click, so each run opens the
+database, reads what it needs and closes it again; everything is saved in
+`data/wattwatch.db` between runs and restarts.
 
 ---
 
-## Step 10 — Tests (`tests/test_wattwatch.py`)
+## Step 10 — Tests (`tests/`)
 
-`python -m pytest` checks each step with a simple tariff whose results are
+`python -m pytest` (32 tests in `tests/`) checks each step with a simple tariff whose results are
 easy to verify by hand: telescopic billing, invalid tariffs, reading
 validation, save/load, usage rate, projection, all three alert levels, the
 saving plan (biggest appliance first, caps, essentials untouched), savings,
-and OCR number parsing.
+OCR number parsing, and the database (sample data matches the PDF,
+readings, validation, bills, payment status).
 
 ---
 
@@ -272,6 +304,6 @@ and OCR number parsing.
 - Tariff rules where the total consumption changes the price of the lower
   slabs too (not just the units above the limit). If the current tariff
   order or subsidy rules work this way, extend `calculate_bill`.
-- Multiple households / user login, with a database instead of a JSON file.
+- User logins so each family only sees its own household.
 - A trained digit recogniser for 7-segment meter displays to improve OCR.
 - SMS/WhatsApp reminders to take a reading every few days.
