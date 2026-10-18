@@ -342,10 +342,30 @@ def bills_tab(conn, house_id, cycle, tariff):
 
 # ---------- Main ----------
 
+@st.dialog("Welcome to WATT-WATCH ⚡", width="large")
+def welcome_popup():
+    st.write("**See your electricity bill coming before it arrives.** WATT-WATCH tracks your "
+             "meter readings, predicts your bill, warns you before you cross into a costlier "
+             "slab, and shows how to save.")
+    st.markdown(
+        "1. **📷 Scan & Track** – upload a meter photo or type the reading.\n"
+        "2. **📈 Predict & Warn** – see your expected units and bill, with an early warning.\n"
+        "3. **💡 Reduce & Save** – pick your appliances and get a saving plan.\n"
+        "4. **🧾 Bills** – generate the bill and track payment."
+    )
+    st.caption("👈 Start by choosing or adding your household in the sidebar (open it with >> at the top left).")
+    if st.button("Get started", type="primary"):
+        st.rerun()  # closes the pop-up
+
+
 def main():
     st.title("⚡ WATT-WATCH")
     st.caption("See your electricity bill coming before it arrives. "
                "Scan → Track → Predict → Warn → Reduce → Save 🌱")
+    # Show the welcome pop-up once, when the page is first opened.
+    if "welcome_shown" not in st.session_state:
+        st.session_state.welcome_shown = True
+        welcome_popup()
 
     conn = db.connect(DB_FILE)
     try:
