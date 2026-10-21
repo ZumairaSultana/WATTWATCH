@@ -117,8 +117,8 @@ def test_alert_critical_when_crossing_two_slabs():
 
 
 def test_alert_ignores_free_units_limit():
-    # 80 units so far, projects 260: crosses only the free 100-unit limit.
-    alert = check_slab_alert(_prediction(80, 4, 45), TARIFF)
+    # 80 units in 20 days (4/day), projects 240: crosses only the free 100-unit limit.
+    alert = check_slab_alert(_prediction(80, 4, 40), TARIFF)
     assert alert.level == SAFE
     assert alert.units_to_cut == 0
 
