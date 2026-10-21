@@ -116,6 +116,13 @@ def test_alert_critical_when_crossing_two_slabs():
     assert alert.target_units == 500  # nearest limit below the projection
 
 
+def test_alert_ignores_free_units_limit():
+    # 80 units so far, projects 260: crosses only the free 100-unit limit.
+    alert = check_slab_alert(_prediction(80, 4, 45), TARIFF)
+    assert alert.level == SAFE
+    assert alert.units_to_cut == 0
+
+
 # ---------- appliances / saving plan ----------
 
 APPLIANCES = [

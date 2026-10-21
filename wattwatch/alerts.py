@@ -26,7 +26,9 @@ class SlabAlert:
 
 def check_slab_alert(prediction, tariff, critical_days=7):
     p = prediction
-    crossing = [b for b in tariff.boundaries if p.units_so_far < b < p.projected_units]
+    # Ignore the free-units limit (rate 0): crossing it is unavoidable for most homes.
+    paid_limits = [s.upto for s in tariff.slabs if s.rate > 0 and s.upto != float("inf")]
+    crossing = [b for b in paid_limits if p.units_so_far < b < p.projected_units]
 
     if not crossing:
         limit = tariff.slabs[slab_index(p.projected_units, tariff)].upto
